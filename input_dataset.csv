@@ -1,0 +1,11 @@
+Formula,Space Group Symbol,Space Group Number,Sites,Formation Energy,Volume,Density,Band Gap,Magnetic Ordering,Total Magnetization
+LiFePO4,PNM21,62,4,-0.6,234.5,3.6,3.2,NM,0.0
+NMCoO2,R-3m,166,3,-0.8,300.4,4.5,2.8,NM,0.0
+Fe2O3,R-3c,167,2,-1.1,430.2,5.2,2.2,Antiferromagnetic,0.1
+CuO,Pnma,62,4,-0.4,230.1,6.3,1.7,NM,0.0
+TiO2,P42/mnm,136,1,-1.4,366.8,4.3,3.0,NM,0.0
+MnO2,P42/mnm,136,2,-0.9,390.6,4.8,2.1,Antiferromagnetic,0.2
+NMFeO2,R-3m,166,3,-0.7,320.3,4.4,2.5,NM,0.0
+K2SO4,Pnnm,58,4,-0.3,210.7,3.1,3.5,NM,0.0
+Al2O3,R-3c,167,2,-1.3,500.4,3.9,5.1,NM,0.0
+SrTiO3,P4mm,99,1,-1.2,450.8,5.0,3.4,NM,0.0

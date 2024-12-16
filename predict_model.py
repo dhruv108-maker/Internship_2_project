@@ -1,5 +1,3 @@
-# predict_model.py
-
 import pandas as pd
 import joblib
 
@@ -7,47 +5,30 @@ import joblib
 model = joblib.load('trained_model.pkl')
 
 # Define a function to preprocess and predict for new inputs
-def predict_crystal_system(model, new_data):
-    # Create a DataFrame with the new material formula and features
-    new_data_df = pd.DataFrame(new_data)
+def predict_crystal_system(model, input_file):
+    # Read the CSV file into a DataFrame
+    new_data_df = pd.read_csv(input_file)
+    
+    # Ensure the DataFrame has the same columns as the model expects
+    expected_columns = ['Formula', 'Space Group Symbol', 'Space Group Number', 'Sites',
+                        'Formation Energy', 'Volume', 'Density', 'Band Gap',
+                        'Magnetic Ordering', 'Total Magnetization']
+    if not all(col in new_data_df.columns for col in expected_columns):
+        missing_cols = set(expected_columns) - set(new_data_df.columns)
+        raise ValueError(f"Missing required columns: {missing_cols}")
     
     # Use the trained model to make predictions
     predictions = model.predict(new_data_df)
     
-    # Return the predicted crystal systems
-    return predictions
+    # Return the DataFrame with predictions
+    new_data_df['Predicted Crystal System'] = predictions
+    return new_data_df
 
-# Example of new data to be tested
-new_material_data = [
-    {
-        'Formula': 'LiFePO4', 
-        'Space Group Symbol': 'Pna21',
-        'Space Group Number': 62, 
-        'Sites': 4, 
-        'Formation Energy': -0.6, 
-        'Volume': 234.5, 
-        'Density': 3.6, 
-        'Band Gap': 3.2, 
-        'Magnetic Ordering': 'None', 
-        'Total Magnetization': 0.0
-    },
-    {
-        'Formula': 'NaCoO2', 
-        'Space Group Symbol': 'R-3m',
-        'Space Group Number': 166, 
-        'Sites': 3, 
-        'Formation Energy': -0.8, 
-        'Volume': 300.4, 
-        'Density': 4.5, 
-        'Band Gap': 2.8, 
-        'Magnetic Ordering': 'None', 
-        'Total Magnetization': 0.0
-    }
-]
+# Input CSV file containing new material data
+input_file = 'input_dataset.csv'
 
-# Now call the predict function to get predictions
-predicted_crystal_systems = predict_crystal_system(model, new_material_data)
+# Call the predict function
+predicted_results = predict_crystal_system(model, input_file)
 
 # Output the predictions
-for idx, material in enumerate(new_material_data):
-    print(f"Formula: {material['Formula']} -> Predicted Crystal System: {predicted_crystal_systems[idx]}")
+print(predicted_results[['Formula', 'Predicted Crystal System']])
